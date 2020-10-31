@@ -29,3 +29,7 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'registration/registration_form.html', {'form': form, 'name': name})
+
+def home(request):
+
+    return render(request, 'index.html')
