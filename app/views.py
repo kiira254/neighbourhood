@@ -2,7 +2,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect
 import datetime as dt
 from django.contrib.auth.decorators import login_required
-from .forms import SignupForm, UserProfileForm
+from .forms import SignupForm, ProfileForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
