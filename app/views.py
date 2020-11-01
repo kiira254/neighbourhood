@@ -35,7 +35,7 @@ def home(request):
     try:
         profile = UserProfile.objects.get(user = current_user)
     except:
-        return redirect('edit_profile',username = current_user.username)
+        return redirect('new_profile',username = current_user.username)
 
     try:
         posts = Post.objects.filter(neighborhood = profile.neighborhood)
@@ -56,7 +56,7 @@ def home(request):
                 for recipient in recipients:
                     send_a_email(post.title,post.content,recipient.email)
 
-        return redirect('index')
+        return redirect('post')
     else:
         form = PostForm()
     return render(request,'index.html',{"posts":posts,"profile":profile,"form":form})
@@ -80,7 +80,7 @@ def new_profile(request,username):
                 profile.save()
             return redirect('index')
     else:
-        if UserProfile.objects.filter(user=current_user):
+        if UserProfile.objects.filter(id=1):
             profile = UserProfile.objects.get(user=current_user)
             form = UserProfileForm(instance=profile)
         else:
@@ -92,8 +92,8 @@ def search(request):
     current_user = request.user
     if 'search' in request.GET and request.GET["search"]:
         search_term = request.GET.get("search")
-        companies = Company.objects.filter(name__icontains=search_term)
-        return render(request,'search.html',{'companies':companies})
+        business = business.objects.filter(name__icontains=search_term)
+        return render(request,'search.html',{'business':business})
     else:
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})

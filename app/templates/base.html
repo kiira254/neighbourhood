@@ -30,7 +30,7 @@
                     $('.sidenav').sidenav();
                     var posts = []
                     $.ajax({
-                        url: 'http://'+ window.location.host +'/api/companies',
+                        url: 'http://'+ window.location.host +'/api/business',
                         success: function (data) {
                             $.each(data, function(index,value) {
                                 posts.push(value['name'])

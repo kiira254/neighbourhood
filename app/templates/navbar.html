@@ -24,11 +24,16 @@
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 
                 <ul class="nav navbar-nav navbar-right">
-                    <form style="width: 200px;" class="navbar-form" role="search" action="">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search" name="project">
-                        </div>
-                    </form>
+                    <ul class="">
+                        <li><form class="" action="{% url 'search' %}">
+                          <div id="custom-search-input">
+                                <div class="input-group col-md-12 ui-widget">
+                                    <input id="search" type="text" class="form-control input-lg" placeholder="Search Business" name="search" />
+                                </div>
+                            </div>
+                      </form></li>
+              
+                    </ul>
                 </ul>
             </div>
             <div class="user-image" style="float:right; margin-right:105px;">

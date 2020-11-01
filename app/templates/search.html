@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container">
     <div class="col m12">
-        {% if companies %}
+        {% if business %}
         <table>
         <thead>
           <tr>
@@ -14,12 +14,12 @@
         </thead>
 
         <tbody>
-            {% for company in companies %}
+            {% for business in business %}
                 <tr>
-                  <td>{{company.name}}</td>
-                  <td>{{company.description}}</td>
-                  <td>{{company.user}}</td>
-                  <td>{{company.email}}</td>
+                  <td>{{business.name}}</td>
+                  <td>{{business.description}}</td>
+                  <td>{{business.user}}</td>
+                  <td>{{business.email}}</td>
                 </tr>
             {% endfor %}
         </tbody>

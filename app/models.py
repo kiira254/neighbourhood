@@ -46,3 +46,27 @@ class Location(models.Model):
 
     def __str__(self):
         return self.name
+
+class Business (models.Model):
+    name = models.CharField(max_length = 60)
+    user = models.ForeignKey(User,on_delete = models.CASCADE,related_name = 'business_user')
+    description = models.CharField(max_length = 150,null=True)
+    neighborhood = models.ForeignKey(Neighborhood,on_delete = models.CASCADE,related_name = 'business_neighbourhood')
+    email = models.EmailField(max_length = 60)
+
+    def __str__(self):
+        return self.name
+
+    def create_business(self):
+        self.save()
+
+    def delete_business(self):
+        self.delete()
+
+    @classmethod
+    def find_business(cls,business_id):
+        business = business.objects.get(id = business_id)
+        return business
+
+    def update_business(self):
+        self.save()

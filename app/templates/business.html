@@ -2,8 +2,8 @@
 {% block content %}
     <div class="container">
         <div class="col m12">
-            <button class="btn right hoverable modal-trigger" type="button" name="button" style="margin: 20px;" href="#modal1"><i class="material-icons left">add_circle_outline</i> Add Company</button>
-            {% if companies %}
+            <button class="btn right hoverable modal-trigger" type="button" name="button" style="margin: 20px;" href="#modal1"><i class="material-icons left">add_circle_outline</i> Add business</button>
+            {% if business %}
             <table>
             <thead>
               <tr>
@@ -15,25 +15,25 @@
             </thead>
 
             <tbody>
-                {% for company in companies %}
+                {% for business in business %}
                     <tr>
-                      <td>{{company.name}}</td>
-                      <td>{{company.description}}</td>
-                      <td>{{company.user}}</td>
-                      <td>{{company.email}}</td>
+                      <td>{{business.name}}</td>
+                      <td>{{business.description}}</td>
+                      <td>{{business.user}}</td>
+                      <td>{{business.email}}</td>
                     </tr>
                 {% endfor %}
             </tbody>
           </table>
           {% else %}
-          <h1 class="center-align">There are no companies registered in your Neighborhood</h1>
+          <h1 class="center-align">There are no business registered in your Neighborhood</h1>
           {% endif %}
         </div>
           <!-- Modal Structure -->
           <div id="modal1" class="modal" style="max-height: 800px !important;">
-            <form action="{%url 'companies' %}" method='post' enctype="multipart/form-data">
+            <form action="{%url 'business' %}" method='post' enctype="multipart/form-data">
             <div class="modal-content">
-              <h4>Add a Company</h4>
+              <h4>Add a business</h4>
 
                   {% csrf_token %}
                   {{ form }}
