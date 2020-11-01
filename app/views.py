@@ -31,8 +31,35 @@ def signup(request):
     return render(request, 'registration/registration_form.html', {'form': form, 'name': name})
 
 def home(request):
+    current_user = request.user
+    try:
+        profile = UserProfile.objects.get(user = current_user)
+    except:
+        return redirect('edit_profile',username = current_user.username)
 
-    return render(request, 'index.html')
+    try:
+        posts = Post.objects.filter(neighborhood = profile.neighborhood)
+    except:
+        posts = None
+
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = current_user
+            post.neighborhood = profile.neighborhood
+            post.type = request.POST['type']
+            post.save()
+
+            if post.type == '1':
+                recipients = UserProfile.objects.filter(neighborhood=post.neighborhood)
+                for recipient in recipients:
+                    send_a_email(post.title,post.content,recipient.email)
+
+        return redirect('index')
+    else:
+        form = PostForm()
+    return render(request,'index.html',{"posts":posts,"profile":profile,"form":form})
 
 def new_profile(request,username):
     current_user = request.user
@@ -59,3 +86,14 @@ def new_profile(request,username):
         else:
             form = UserProfileForm()
     return render(request,'profile/new_profile.html',{"form":form})
+
+@login_required
+def search(request):
+    current_user = request.user
+    if 'search' in request.GET and request.GET["search"]:
+        search_term = request.GET.get("search")
+        companies = Company.objects.filter(name__icontains=search_term)
+        return render(request,'search.html',{'companies':companies})
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html',{"message":message})

@@ -7,7 +7,7 @@ from django.urls import path, re_path
 urlpatterns=[
     url(r'^$',views.home,name='home'),
     re_path('new_profile/(?P<username>\w{0,50})',views.new_profile,name = 'new_profile'),
-    
+    path('search/',views.search,name='search'),
 ]
 
 if settings.DEBUG:

@@ -21,7 +21,8 @@
 <body>
     <div class="container">
         <form action='.' method='post'>
-            
+            {% csrf_token %}
+            {% bootstrap_form form%}
             <button type='submit' class="btn btn-danger">Submit</button>
         </form>
     </div>
