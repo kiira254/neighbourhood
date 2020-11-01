@@ -2,11 +2,11 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect
 import datetime as dt
 from django.contrib.auth.decorators import login_required
-from .forms import SignupForm, ProfileForm
+from .forms import SignupForm, UserProfileForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
-from .models import Profile
+from .models import UserProfile, Neighborhood
 # Create your views here.
 
 def signup(request):
