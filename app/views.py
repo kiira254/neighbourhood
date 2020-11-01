@@ -25,7 +25,7 @@ def signup(request):
             [email],
             fail_silently=False,
             )
-        return redirect('post')
+        return redirect('index')
     else:
         form = SignUpForm()
     return render(request, 'registration/registration_form.html', {'form': form, 'name': name})
