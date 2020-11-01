@@ -2,11 +2,11 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect
 import datetime as dt
 from django.contrib.auth.decorators import login_required
-from .forms import SignupForm, UserProfileForm
+from .forms import SignupForm, UserProfileForm, PostForm, CommentForm, BusinessForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
-from .models import UserProfile, Neighborhood
+from .models import UserProfile, Neighborhood,Business,Location, Comment,Post
 # Create your views here.
 
 def signup(request):
@@ -20,7 +20,7 @@ def signup(request):
             send_mail(
             'Welcome to Mini-Insta.',
             f'Hello {name},\n '
-            'Welcome to Mini-Insta.',
+            'Welcome to the Nighbourhood.',
             'nkamotho69@gmail.com',
             [email],
             fail_silently=False,
@@ -97,3 +97,25 @@ def search(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
+
+@login_required
+def post(request,id):
+    post = Post.objects.get(id=id)
+    comments = Comment.objects.filter(post=post)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.post = post
+            comment.save()
+        return redirect('post',id = post.id)
+    else:
+        form = CommentForm()
+    return render(request,'post.html',{"post":post,"comments":comments,"form":form})
+
+class BusinessList(APIView):
+    def get(self, request, format=None):
+        all_business = Business.objects.all()
+        serializers = BusinessSerializer(all_business, many=True)
+        return Response(serializers.data)
