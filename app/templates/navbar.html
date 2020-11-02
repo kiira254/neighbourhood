@@ -19,35 +19,32 @@
             </div>
 
 
-            <li><a href="{% url 'new_profile' user.username %}">Profile</a></li>
+            <a href="{% url 'new_profile' user.username %}">Profile</a>
 
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 
                 <ul class="nav navbar-nav navbar-right">
                     <ul class="">
-                        <li><form class="" action="{% url 'search' %}">
-                          <div id="custom-search-input">
-                                <div class="input-group col-md-12 ui-widget">
-                                    <input id="search" type="text" class="form-control input-lg" placeholder="Search Business" name="search" />
+                        <li>
+                            <form class="" action="{% url 'search' %}">
+                                <div id="custom-search-input">
+                                    <div class="input-group col-md-12 ui-widget">
+                                        <input id="search" type="text" class="form-control input-lg"
+                                            placeholder="Search Business" name="search" />
+                                    </div>
                                 </div>
-                            </div>
-                      </form></li>
-              
+                            </form>
+                        </li>
+
                     </ul>
                 </ul>
             </div>
-            <div class="user-image" style="float:right; margin-right:105px;">
-                <a href="" style="color:black;text-decoration:none;margin:auto;">
-                    <p
-                        style="font-size: 13px; font-weight:lighter;margin:auto;text-transform:uppercase;margin-left:-20px;">
-                        {{profile.username}}</p>
-                </a>
-                <img src="" class="gallery-image" style="margin:auto;" width=8 height=8>
-                <a href=""><button class="btn btn-dark">New Project</button></a>
-
-            </div>
-            <a href="accounts/register/"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
-            <a href="accounts/login"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+            <a href="{% url 'business' %}">Businesses Around</a>
+            <a href="#contactsmodal" class="modal-trigger">Emergency Contacts</a> 
+            
+        </div>
+        <a href="accounts/register/"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+        <a href="accounts/login"><span class="glyphicon glyphicon-log-in"></span> Login</a>
         </div>
 
         </div>
@@ -57,18 +54,20 @@
 
     </nav>
 
-    <div class="container">
-        <div id="contactsmodal" class="modal">
-            <div class="modal-content">
-                <h4>Hotline Emergency Contacts</h4>
-                <p>Police: 999 / +254 203 414 11 <br>Ambulance: 5674 / 020-2222181 <br>Fire Brigade: 2222181</p>
-            </div>
-            <div class="modal-footer">
-                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-            </div>
-        </div>
-    </div>
-
+    <ul class="sidenav" id="mobile-demo">
+        <a href="{% url 'business' %}">Businesses Around</a>        
+     </ul>
+    
+     <!-- Modal Structure -->
+       <div id="contactsmodal" class="modal">
+         <div class="modal-content">
+           <h4>Hotline Emergency Contacts</h4>
+           <p>Police: 999 / +254 203 414 11 <br>Ambulance: 5674 / 020-2222181 <br>Fire Brigade: 2222181</p>
+         </div>
+         <div class="modal-footer">
+           <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+         </div>
+       </div>
 </body>
 
 </html>

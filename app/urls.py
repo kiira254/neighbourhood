@@ -10,7 +10,7 @@ urlpatterns=[
     path('search/',views.search,name='search'),
     re_path('post/(?P<id>\d+)',views.post,name='post'),
     path('business',views.Business,name = 'business'),
-    path('api/business/',views.BusinessList.as_view())v
+    path('api/business/',views.BusinessList.as_view()),
 
 ]
 
