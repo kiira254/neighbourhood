@@ -8,7 +8,7 @@ urlpatterns=[
     path(r'',views.home,name='home'),
     re_path('new_profile/(?P<username>\w{0,50})',views.new_profile,name = 'new_profile'),
     path('search/',views.search,name='search'),
-    re_path('post/(?P<id>\d+)',views.post,name='post'),
+    re_path('post/',views.post,name='post'),
     path('business',views.Business,name = 'business'),
     path('api/business/',views.BusinessList.as_view()),
 

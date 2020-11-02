@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404
 from .models import UserProfile, Neighborhood,Business,Location, Comment,Post
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.db import IntegrityError
 
 # Create your views here.
 
@@ -97,7 +98,7 @@ def search(request):
     current_user = request.user
     if 'search' in request.GET and request.GET["search"]:
         search_term = request.GET.get("search")
-        business = business.objects.filter(name__icontains=search_term)
+        business = Business.objects.filter(name__icontains=search_term)
         return render(request,'search.html',{'business':business})
     else:
         message = "You haven't searched for any term"
@@ -143,6 +144,8 @@ def business(request):
 
 class BusinessList(APIView):
     def get(self, request, format=None):
-        all_business = Business.objects.all()
-        serializers = BusinessSerializer(all_business, many=True)
+        all_businesses = Business.objects.all()
+        serializers = BusinessSerializer(all_businesses, many=True)
         return Response(serializers.data)
+
+    
