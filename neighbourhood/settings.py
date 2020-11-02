@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 import django_heroku
 import dj_database_url
-from decouple import config,Csv
+from decouple import config
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
