@@ -33,6 +33,7 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'registration/registration_form.html', {'form': form, 'name': name})
 
+@login_required(login_url='/accounts/login/')
 def home(request):
     current_user = request.user
     try:
@@ -64,6 +65,7 @@ def home(request):
         form = PostForm()
     return render(request,'index.html',{"posts":posts,"profile":profile,"form":form})
 
+@login_required(login_url='/accounts/login/')
 def new_profile(request,username):
     current_user = request.user
     if request.method == 'POST':
@@ -90,7 +92,7 @@ def new_profile(request,username):
             form = UserProfileForm()
     return render(request,'profile/new_profile.html',{"form":form})
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def search(request):
     current_user = request.user
     if 'search' in request.GET and request.GET["search"]:
@@ -101,7 +103,7 @@ def search(request):
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
 
-@login_required
+@login_required(login_url='/accounts/login/')
 def post(request,id):
     post = Post.objects.get(id=id)
     comments = Comment.objects.filter(post=post)
@@ -116,6 +118,28 @@ def post(request,id):
     else:
         form = CommentForm()
     return render(request,'post.html',{"post":post,"comments":comments,"form":form})
+
+@login_required(login_url='/accounts/login/')
+def business(request):
+    current_user = request.user
+    neighborhood = UserProfile.objects.get(user = current_user).neighborhood
+    if request.method == 'POST':
+        form = BusinessForm(request.POST)
+        if form.is_valid():
+            business = form.save(commit=False)
+            business.user = current_user
+            business.neighborhood = neighborhood
+            business.save()
+            return redirect('business')
+    else:
+        form = BusinessForm()
+
+    try:
+        business = Business.objects.filter(neighborhood = neighborhood)
+    except:
+        business = None
+
+    return render(request,'business.html',{"business":business,"form":form})
 
 class BusinessList(APIView):
     def get(self, request, format=None):
